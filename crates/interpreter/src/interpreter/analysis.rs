@@ -11,7 +11,7 @@ use crate::{
     },
     OPCODE_INFO_JUMPTABLE, STACK_LIMIT,
 };
-use std::{rc::Rc, vec::Vec};
+use std::{sync::Arc, vec, vec::Vec};
 
 const EOF_NON_RETURNING_FUNCTION: u8 = 0x80;
 
@@ -63,7 +63,7 @@ fn analyze(code: &[u8]) -> JumpTable {
         }
     }
 
-    JumpTable(Rc::new(jumps))
+    JumpTable(Arc::new(jumps))
 }
 
 pub fn validate_raw_eof(bytecode: Bytes) -> Result<Eof, EofError> {

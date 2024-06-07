@@ -4,7 +4,7 @@ pub use jump_map::JumpTable;
 
 use crate::Bytes;
 use bitvec::{bitvec, order::Lsb0};
-use std::rc::Rc;
+use std::sync::Arc;
 
 /// Legacy analyzed
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
@@ -24,7 +24,7 @@ impl Default for LegacyAnalyzedBytecode {
         Self {
             bytecode: Bytes::from_static(&[0]),
             original_len: 0,
-            jump_table: JumpTable(Rc::new(bitvec![u8, Lsb0; 0])),
+            jump_table: JumpTable(Arc::new(bitvec![u8, Lsb0; 0])),
         }
     }
 }
