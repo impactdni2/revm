@@ -1,11 +1,11 @@
 use crate::hex;
 use bitvec::vec::BitVec;
-use std::{fmt::Debug, sync::Arc};
+use std::{fmt::Debug, rc::Rc};
 
 /// A map of valid `jump` destinations.
 #[derive(Clone, Default, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-pub struct JumpTable(pub Arc<BitVec<u8>>);
+pub struct JumpTable(pub Rc<BitVec<u8>>);
 
 impl Debug for JumpTable {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
@@ -25,7 +25,7 @@ impl JumpTable {
     /// Construct a jump map from raw bytes
     #[inline]
     pub fn from_slice(slice: &[u8]) -> Self {
-        Self(Arc::new(BitVec::from_slice(slice)))
+        Self(Rc::new(BitVec::from_slice(slice)))
     }
 
     /// Check if `pc` is a valid jump destination.
