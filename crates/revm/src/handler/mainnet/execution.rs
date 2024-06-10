@@ -85,7 +85,7 @@ pub fn last_frame_return<SPEC: Spec, EXT, DB: Database>(
 #[inline]
 pub fn call<SPEC: Spec, EXT, DB: Database>(
     context: &mut Context<EXT, DB>,
-    inputs: Box<CallInputs>,
+    inputs: CallInputs,
 ) -> Result<FrameOrResult, EVMError<DB::Error>> {
     context.evm.make_call_frame(&inputs)
 }

@@ -20,7 +20,7 @@ use std::boxed::Box;
 pub enum InterpreterAction {
     /// CALL, CALLCODE, DELEGATECALL, STATICCALL
     /// or EOF EXT instuction called.
-    Call { inputs: Box<CallInputs> },
+    Call { inputs: CallInputs },
     /// CREATE or CREATE2 instruction called.
     Create { inputs: Box<CreateInputs> },
     /// EOF CREATE instruction called.

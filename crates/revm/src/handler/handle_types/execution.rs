@@ -32,7 +32,7 @@ pub type ExecuteFrameHandle<'a, EXT, DB> = Arc<
 pub type FrameCallHandle<'a, EXT, DB> = Arc<
     dyn Fn(
             &mut Context<EXT, DB>,
-            Box<CallInputs>,
+            CallInputs,
         ) -> Result<FrameOrResult, EVMError<<DB as Database>::Error>>
         + 'a,
 >;
@@ -190,7 +190,7 @@ impl<'a, EXT, DB: Database> ExecutionHandler<'a, EXT, DB> {
     pub fn call(
         &self,
         context: &mut Context<EXT, DB>,
-        inputs: Box<CallInputs>,
+        inputs: CallInputs,
     ) -> Result<FrameOrResult, EVMError<DB::Error>> {
         (self.call)(context, inputs)
     }

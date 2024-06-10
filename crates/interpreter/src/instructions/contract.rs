@@ -218,7 +218,7 @@ pub fn extcall<H: Host + ?Sized, SPEC: Spec>(interpreter: &mut Interpreter, host
 
     // Call host to interact with target contract
     interpreter.next_action = InterpreterAction::Call {
-        inputs: Box::new(CallInputs {
+        inputs: CallInputs {
             input,
             gas_limit,
             target_address,
@@ -229,7 +229,7 @@ pub fn extcall<H: Host + ?Sized, SPEC: Spec>(interpreter: &mut Interpreter, host
             is_static: interpreter.is_static,
             is_eof: true,
             return_memory_offset: 0..0,
-        }),
+        },
     };
     interpreter.instruction_result = InstructionResult::CallOrCreate;
 }
@@ -250,7 +250,7 @@ pub fn extdelegatecall<H: Host + ?Sized, SPEC: Spec>(interpreter: &mut Interpret
 
     // Call host to interact with target contract
     interpreter.next_action = InterpreterAction::Call {
-        inputs: Box::new(CallInputs {
+        inputs: CallInputs {
             input,
             gas_limit,
             target_address,
@@ -262,7 +262,7 @@ pub fn extdelegatecall<H: Host + ?Sized, SPEC: Spec>(interpreter: &mut Interpret
             is_static: interpreter.is_static,
             is_eof: true,
             return_memory_offset: 0..0,
-        }),
+        },
     };
     interpreter.instruction_result = InstructionResult::CallOrCreate;
 }
@@ -282,7 +282,7 @@ pub fn extstaticcall<H: Host + ?Sized>(interpreter: &mut Interpreter, host: &mut
 
     // Call host to interact with target contract
     interpreter.next_action = InterpreterAction::Call {
-        inputs: Box::new(CallInputs {
+        inputs: CallInputs {
             input,
             gas_limit,
             target_address,
@@ -293,7 +293,7 @@ pub fn extstaticcall<H: Host + ?Sized>(interpreter: &mut Interpreter, host: &mut
             is_static: interpreter.is_static,
             is_eof: true,
             return_memory_offset: 0..0,
-        }),
+        },
     };
     interpreter.instruction_result = InstructionResult::CallOrCreate;
 }
@@ -408,7 +408,7 @@ pub fn call<H: Host + ?Sized, SPEC: Spec>(interpreter: &mut Interpreter, host: &
 
     // Call host to interact with target contract
     interpreter.next_action = InterpreterAction::Call {
-        inputs: Box::new(CallInputs {
+        inputs: CallInputs {
             input,
             gas_limit,
             target_address: to,
@@ -419,7 +419,7 @@ pub fn call<H: Host + ?Sized, SPEC: Spec>(interpreter: &mut Interpreter, host: &
             is_static: interpreter.is_static,
             is_eof: false,
             return_memory_offset,
-        }),
+        },
     };
     interpreter.instruction_result = InstructionResult::CallOrCreate;
 }
@@ -459,7 +459,7 @@ pub fn call_code<H: Host + ?Sized, SPEC: Spec>(interpreter: &mut Interpreter, ho
 
     // Call host to interact with target contract
     interpreter.next_action = InterpreterAction::Call {
-        inputs: Box::new(CallInputs {
+        inputs: CallInputs {
             input,
             gas_limit,
             target_address: interpreter.contract.target_address,
@@ -470,7 +470,7 @@ pub fn call_code<H: Host + ?Sized, SPEC: Spec>(interpreter: &mut Interpreter, ho
             is_static: interpreter.is_static,
             is_eof: false,
             return_memory_offset,
-        }),
+        },
     };
     interpreter.instruction_result = InstructionResult::CallOrCreate;
 }
@@ -500,7 +500,7 @@ pub fn delegate_call<H: Host + ?Sized, SPEC: Spec>(interpreter: &mut Interpreter
 
     // Call host to interact with target contract
     interpreter.next_action = InterpreterAction::Call {
-        inputs: Box::new(CallInputs {
+        inputs: CallInputs {
             input,
             gas_limit,
             target_address: interpreter.contract.target_address,
@@ -511,7 +511,7 @@ pub fn delegate_call<H: Host + ?Sized, SPEC: Spec>(interpreter: &mut Interpreter
             is_static: interpreter.is_static,
             is_eof: false,
             return_memory_offset,
-        }),
+        },
     };
     interpreter.instruction_result = InstructionResult::CallOrCreate;
 }
@@ -541,7 +541,7 @@ pub fn static_call<H: Host + ?Sized, SPEC: Spec>(interpreter: &mut Interpreter, 
 
     // Call host to interact with target contract
     interpreter.next_action = InterpreterAction::Call {
-        inputs: Box::new(CallInputs {
+        inputs: CallInputs {
             input,
             gas_limit,
             target_address: to,
@@ -552,7 +552,7 @@ pub fn static_call<H: Host + ?Sized, SPEC: Spec>(interpreter: &mut Interpreter, 
             is_static: true,
             is_eof: false,
             return_memory_offset,
-        }),
+        },
     };
     interpreter.instruction_result = InstructionResult::CallOrCreate;
 }
