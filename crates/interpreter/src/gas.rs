@@ -10,6 +10,7 @@ pub use constants::*;
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Gas {
+    measure: bool,
     /// The initial gas limit. This is constant throughout execution.
     limit: u64,
     /// The remaining gas.
@@ -23,6 +24,7 @@ impl Gas {
     #[inline]
     pub const fn new(limit: u64) -> Self {
         Self {
+            measure: limit < u64::MAX,
             limit,
             remaining: limit,
             refunded: 0,
@@ -33,6 +35,7 @@ impl Gas {
     #[inline]
     pub const fn new_spent(limit: u64) -> Self {
         Self {
+            measure: false,
             limit,
             remaining: 0,
             refunded: 0,
@@ -116,7 +119,7 @@ impl Gas {
     #[inline]
     #[must_use = "prefer using `gas!` instead to return an out-of-gas error on failure"]
     pub fn record_cost(&mut self, cost: u64) -> bool {
-      if self.limit == u64::MAX {
+      if !self.measure {
           return true;
       }
 
