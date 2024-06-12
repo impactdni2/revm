@@ -339,7 +339,11 @@ impl<EXT, DB: Database> Evm<'_, EXT, DB> {
         // deduce caller balance with its limit.
         pre_exec.deduct_caller(ctx)?;
 
-        let gas_limit = ctx.evm.env.tx.gas_limit - initial_gas_spend;
+        let gas_limit = if ctx.evm.env.tx.gas_limit < u64::MAX {
+          ctx.evm.env.tx.gas_limit - initial_gas_spend
+        } else {
+          u64::MAX
+        };
 
         let exec = self.handler.execution();
         // call inner handling of call/create
