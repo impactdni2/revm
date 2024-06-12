@@ -117,6 +117,7 @@ impl Gas {
     #[must_use = "prefer using `gas!` instead to return an out-of-gas error on failure"]
     pub fn record_cost(&mut self, cost: u64) -> bool {
       if self.limit == u64::MAX {
+        println!("Skipping gas accounting!");
           return true;
       }
 
