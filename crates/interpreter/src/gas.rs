@@ -117,10 +117,8 @@ impl Gas {
     #[must_use = "prefer using `gas!` instead to return an out-of-gas error on failure"]
     pub fn record_cost(&mut self, cost: u64) -> bool {
       if self.limit == u64::MAX {
-        println!("Skip record_cost!");
           return true;
       }
-      println!("record_cost, limit: {}", self.limit);
 
       let (remaining, overflow) = self.remaining.overflowing_sub(cost);
       let success = !overflow;
